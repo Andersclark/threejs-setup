@@ -1,8 +1,9 @@
+import './main.css'
 import * as THREE from 'three'
 import init from './init'
 import getCube from './objects/cube'
 
-const { camera, clock, controls, scene, renderer } = init()
+const { camera, canvas, clock, controls, scene, sizes, renderer } = init()
 document.body.appendChild(renderer.domElement)
 
 const axesHelper = new THREE.AxesHelper(30)
