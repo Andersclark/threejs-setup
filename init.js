@@ -32,14 +32,7 @@ export default function init() {
     }
   })
 
-  window.addEventListener('resize', () => {
-    sizes.width = window.innerWidth
-    sizes.height = window.innerHeight
-    camera.aspect = sizes.width / sizes.height
-    camera.updateProjectionMatrix()
-    renderer.setSize(sizes.width, sizes.height)
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
-  })
+  window.addEventListener('resize', () => onWindowResize(camera, renderer))
 
   return {
     camera,
@@ -64,9 +57,6 @@ function getCamera() {
     1,
     1000
   )
-  camera.position.z = 5
-  camera.position.y = 2
-  camera.position.x = 5
   return camera
 }
 
