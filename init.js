@@ -1,62 +1,9 @@
 import { Clock, PerspectiveCamera, Scene, WebGLRenderer } from 'three'
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js'
 
-export default function init() {
-  const canvas = document.querySelector('canvas.webgl')
-  const sizes = {
-    width: window.innerWidth,
-    height: window.innerHeight,
-  }
-  const renderer = getRenderer(canvas, sizes)
-  const scene = getScene()
-  const camera = getCamera()
-  const controls = getControls(camera, renderer)
-  const clock = new Clock()
-
-  window.addEventListener('dblclick', () => {
-    const fullscreenElement =
-      document.fullscreenElement || document.webkitFullscreenElement
-
-    if (!fullscreenElement) {
-      if (canvas.requestFullscreen) {
-        canvas.requestFullscreen()
-      } else if (canvas.webkitRequestFullscreen) {
-        canvas.webkitRequestFullscreen()
-      }
-    } else {
-      if (document.exitFullscreen) {
-        document.exitFullscreen()
-      } else if (document.webkitExitFullscreen) {
-        document.webkitExitFullscreen()
-      }
-    }
-  })
-
-  window.addEventListener('resize', () => onWindowResize(camera, renderer))
-
-  return {
-    camera,
-    canvas,
-    clock,
-    controls,
-    scene,
-    sizes,
-    renderer,
-  }
-}
-
-function getScene() {
-  const scene = new Scene()
-  return scene
-}
-
-function getCamera() {
-  const camera = new PerspectiveCamera(
-    60,
-    window.innerWidth / window.innerHeight,
-    1,
-    1000
-  )
+function getCamera(sizes) {
+  const camera = new PerspectiveCamera(75, sizes.width / sizes.height, 0.1, 100)
+  camera.position.z = 3
   return camera
 }
 
@@ -71,4 +18,27 @@ function getRenderer(canvas, sizes) {
   renderer.setSize(sizes.width, sizes.height)
   renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
   return renderer
+}
+
+export default function init() {
+  const canvas = document.querySelector('canvas.webgl')
+  const sizes = {
+    width: window.innerWidth,
+    height: window.innerHeight,
+  }
+  const renderer = getRenderer(canvas, sizes)
+  const scene = new Scene()
+  const camera = getCamera(sizes)
+  const controls = getControls(camera, renderer)
+  const clock = new Clock()
+
+  return {
+    camera,
+    canvas,
+    clock,
+    controls,
+    scene,
+    sizes,
+    renderer,
+  }
 }

@@ -11,10 +11,10 @@
     "sourceType": "module"
   },
   "rules": {
-    "prettier/prettier": "warn",
     "indent": ["warn", 2],
     "linebreak-style": ["error", "unix"],
     "quotes": ["warn", "single"],
-    "semi": ["warn", "never"]
+    "semi": ["warn", "never"],
+    "no-unused-vars": ["warn"]
   }
 }
