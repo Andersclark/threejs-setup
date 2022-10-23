@@ -1,10 +1,21 @@
 import { Clock, PerspectiveCamera, Scene, WebGLRenderer } from 'three'
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js'
+import * as dat from 'lil-gui'
 
 function getCamera(sizes) {
   const camera = new PerspectiveCamera(75, sizes.width / sizes.height, 0.1, 100)
   camera.position.z = 3
   return camera
+}
+
+function getGui(){
+  const gui = new dat.GUI()
+  window.addEventListener('keydown', (event) => {
+    if(event.key === 'h'){
+      gui._hidden ? gui.show() : gui.hide()
+    }
+  })
+  return gui
 }
 
 function getControls(camera, renderer) {
@@ -31,12 +42,14 @@ export default function init() {
   const camera = getCamera(sizes)
   const controls = getControls(camera, renderer)
   const clock = new Clock()
+  const gui = getGui()
 
   return {
     camera,
     canvas,
     clock,
     controls,
+    gui,
     scene,
     sizes,
     renderer,
